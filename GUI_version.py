@@ -11,7 +11,7 @@ def main():
         csvReader = csv.reader(codecs.open(kinorium_path, 'rU', 'utf-16'), delimiter='\t')
         letterboxd_rows = [["Title", "Year", "Rating10"]]
         for row in csvReader:
-            if (row[4] == "Фильм" or row[4] == "Мультфильм") and (row[0] != ""):
+            if (row[4] == "Фильм" or row[4] == "Мультфильм"):
                 if (row[3] != ""):
                     letterboxd_rows.append([row[3], row[5], row[0]])
                 else:
