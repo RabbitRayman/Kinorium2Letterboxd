@@ -8,14 +8,11 @@ from tkinter import messagebox as mb
 def main():
     def fromkinorium2letterboxd():
         kinorium_path = str(txt_in_data.get())
-        csvReader = csv.reader(codecs.open(kinorium_path, 'rU', 'utf-16'), delimiter='\t')
+        csvReader = csv.DictReader(codecs.open(kinorium_path, 'r', 'utf-16'), delimiter='\t')
         letterboxd_rows = [["Title", "Year", "Rating10"]]
         for row in csvReader:
-            if (row[4] == "Фильм" or row[4] == "Мультфильм"):
-                if (row[3] != ""):
-                    letterboxd_rows.append([row[3], row[5], row[0]])
-                else:
-                    letterboxd_rows.append([row[2], row[5], row[0]])
+            if row['Type'] in ("Фильм", "Мультфильм"):
+                letterboxd_rows.append([row['Original Title'] or row['Title'], row['Year'], row['My rating']])
         with open("letterboxd.csv", mode="w", encoding='utf-8') as w_file:
             file_writer = csv.writer(w_file)
             file_writer.writerows(letterboxd_rows)
